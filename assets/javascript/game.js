@@ -1,7 +1,40 @@
 var harry = {
 
     displayHiddenWord: function () {
-        
+        for (var i = 0; i < hiddenWord.length; i++) {
+
+            wordArray = hiddenWord.split('');
+            displayValues = displayValues + '_';
+
+        }
+    },
+
+    guessedWrong: function () {
+        if (event.keyCode >= 65 && event.keyCode <= 90) {
+            lettersGuessed = lettersGuessed + " " + event.key;
+            numberOfGuesses++;
+
+            document.getElementById("lettersChosen").innerHTML = lettersGuessed;
+        }
+    },
+
+    guessedRight: function () {
+
+        isSpace = false;
+        for (i = 0; i < displayAnswer.length; i++) {
+            if (displayAnswer[i] === '_') {
+                isSpace = true;
+            }
+        }
+
+    },
+
+    youLost: function () {
+        document.getElementById("gameOver").innerHTML = "You lost this time.  Press any key to try again.";
+    },
+
+    youWon: function () {
+        document.getElementById("gameOver").innerHTML = "You won!";
     }
 }
 
@@ -22,14 +55,9 @@ window.onload = function () {
 
 };
 
+harry.displayHiddenWord();
 
 
-for (var i = 0; i < hiddenWord.length; i++) {
-
-    wordArray = hiddenWord.split('');
-    displayValues = displayValues + '_';
-
-}
 
 
 var displayAnswer = displayValues.split('');
@@ -45,7 +73,7 @@ document.onkeyup = function (event) {
         var isLetter = false;
         for (var j = 0; j < wordArray.length; j++) {
             if (event.key === wordArray[j]) {
-               
+
                 isLetter = true;
                 displayAnswer[j] = wordArray[j];
 
@@ -53,40 +81,21 @@ document.onkeyup = function (event) {
 
         }
         if (isLetter === false) {
-            if (event.keyCode >= 65 && event.keyCode <= 90) {
-                lettersGuessed = lettersGuessed + " " + event.key;
-                numberOfGuesses++;
-                
-                document.getElementById("lettersChosen").innerHTML = lettersGuessed;
-            }
+            harry.guessedWrong();
         }
         document.getElementById("wordPuzzle").innerHTML = displayAnswer.join(" ");
         if (isLetter === true) {
-            isSpace = false;
-            for (i = 0; i < displayAnswer.length; i++) {
-                if (displayAnswer[i] === '_') {
-                    isSpace = true;
-                }
-            }
-
-        } 
-    }else {
-        document.getElementById("gameOver").innerHTML = "You lost this time.  Press any key to try again.";
+            harry.guessedRight();
+        }
+    } else {
+        harry.youLost();
     }
 
     if (isSpace === false) {
-        document.getElementById("gameOver").innerHTML = "You won!";
-        hiddenWord = harryArray[Math.floor(Math.random() * harryArray.length)];
-        for (var i = 0; i < hiddenWord.length; i++) {
-
-            wordArray = hiddenWord.split('');
-            displayValues = displayValues + '_';
-        
-        }
-
-
+        harry.youWon();
 
     }
+
 
 
 }
