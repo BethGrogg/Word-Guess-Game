@@ -24,7 +24,7 @@ var harry = {
 
             wordArray = hiddenWord.split('');
             displayValues = displayValues + '_';
-          
+
         }
     },
 
@@ -75,9 +75,9 @@ document.onkeyup = function (event) {
     document.getElementById("startMessage").innerHTML = "";
     document.getElementById("lettersChosen").innerHTML = "";
     document.getElementById("wordPuzzle").innerHTML = displayValues;
-    
 
-    if (numberOfGuesses < 10) {
+
+    if (numberOfGuesses < 9) {
 
         var isLetter = false;
         for (var j = 0; j < wordArray.length; j++) {
@@ -91,11 +91,13 @@ document.onkeyup = function (event) {
         }
         if (isLetter === false) {
             harry.guessedWrong();
+            if (numOfGuessesLeft >= 2) {
             numOfGuessesLeft--;
             document.getElementById("numberOfGuessesLeft").innerHTML = "Number of Guesses Left: " + numOfGuessesLeft;
+            }
         }
         document.getElementById("wordPuzzle").innerHTML = displayAnswer.join(" ");
-       
+
         if (isLetter === true) {
             harry.guessedRight();
         }
@@ -106,38 +108,38 @@ document.onkeyup = function (event) {
         document.getElementById("numberOfGuessesLeft").innerHTML = "";
 
     }
-var youWon = false;
+    var youWon = false;
     if (isSpace === false) {
         harry.youWon();
         youWon = true;
         numOfWins++;
         document.getElementById("wins").innerHTML = "Games won: " + numOfWins;
-        
-    }
-// not working....
-    if (youWon === true){
-       
-        hiddenWord = harryArray[Math.floor(Math.random() * harryArray.length)];
-        console.log(hiddenWord);
-        displayValues = "";
-        harry.displayHiddenWord();
-        
-        displayAnswer = displayValues.split('');
-        console.log("dfklds: " + displayAnswer);
-        document.getElementById("wordPuzzle").innerHTML = displayAnswer.join(" ");
-       youWon = false;
-       isSpace = true;
-       lettersGuessed = " ";
-       numberOfGuesses = 0;
-       numOfGuessesLeft = 9;
-       console.log("gfljkkjlf");
+      
 
     }
-console.log("youWon" + youWon);
-console.log("isSpace" + isSpace);
-console.log("lettersGuessed" + lettersGuessed);
-console.log("numberofguesses" + numberOfGuesses);
-console.log("numberofguessesleft" + numOfGuessesLeft);
+    // not working....
+    if (youWon === true) {
+
+        hiddenWord = harryArray[Math.floor(Math.random() * harryArray.length)];
+       
+        displayValues = "";
+        harry.displayHiddenWord();
+
+        displayAnswer = displayValues.split('');
+        
+        document.getElementById("wordPuzzle").innerHTML = displayAnswer.join(" ");
+        youWon = false;
+        isSpace = true;
+        lettersGuessed = " ";
+        numberOfGuesses = 0;
+        numOfGuessesLeft = 9;
+       
+    }
+    console.log("youWon" + youWon);
+    console.log("isSpace" + isSpace);
+    console.log("lettersGuessed" + lettersGuessed);
+    console.log("numberofguesses" + numberOfGuesses);
+    console.log("numberofguessesleft" + numOfGuessesLeft);
 
 
 }
