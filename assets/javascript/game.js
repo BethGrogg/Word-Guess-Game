@@ -17,6 +17,7 @@ var numOfGuessesLeft = 9;
 
 
 
+
 var harry = {
 
     displayHiddenWord: function () {
@@ -72,6 +73,7 @@ var displayAnswer = displayValues.split('');
 
 
 document.onkeyup = function (event) {
+    
     document.getElementById("startMessage").innerHTML = "";
     document.getElementById("lettersChosen").innerHTML = "";
     document.getElementById("wordPuzzle").innerHTML = displayValues;
@@ -114,10 +116,10 @@ document.onkeyup = function (event) {
         youWon = true;
         numOfWins++;
         document.getElementById("wins").innerHTML = "Games won: " + numOfWins;
-      
+        document.getElementById("numberOfGuessesLeft").innerHTML = "Number of Guesses Left: " + 9;
 
     }
-    // not working....
+  
     if (youWon === true) {
 
         hiddenWord = harryArray[Math.floor(Math.random() * harryArray.length)];
@@ -135,11 +137,6 @@ document.onkeyup = function (event) {
         numOfGuessesLeft = 9;
        
     }
-    console.log("youWon" + youWon);
-    console.log("isSpace" + isSpace);
-    console.log("lettersGuessed" + lettersGuessed);
-    console.log("numberofguesses" + numberOfGuesses);
-    console.log("numberofguessesleft" + numOfGuessesLeft);
-
+   
 
 }
