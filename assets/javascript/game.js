@@ -14,6 +14,7 @@ var numOfWins = 0;
 
 var numOfGuessesLeft = 9;
 
+var newGame = false;
 
 
 
@@ -50,18 +51,24 @@ var harry = {
     },
 
     youLost: function () {
-        document.getElementById("gameOver").innerHTML = "You lost this time.  Press any key to try again.";
+        document.getElementById("gameOver").innerHTML = "You lost this time.  Try again!";
+       
+  
+
     },
 
     youWon: function () {
+     
         document.getElementById("gameOver").innerHTML = "You won!";
+       
     }
 }
 
 
 window.onload = function () {
     document.getElementById("startMessage").innerHTML = "Press any key to begin";
-
+   
+    
 };
 
 harry.displayHiddenWord();
@@ -70,10 +77,9 @@ harry.displayHiddenWord();
 var displayAnswer = displayValues.split('');
 
 
-
-
 document.onkeyup = function (event) {
-    
+    var mainSound = document.getElementById("mainAudio");
+mainSound.play();
     document.getElementById("startMessage").innerHTML = "";
     document.getElementById("lettersChosen").innerHTML = "";
     document.getElementById("wordPuzzle").innerHTML = displayValues;
@@ -108,20 +114,28 @@ document.onkeyup = function (event) {
         document.getElementById("wordPuzzle").innerHTML = "";
         document.getElementById("lettersChosen").innerHTML = "";
         document.getElementById("numberOfGuessesLeft").innerHTML = "";
+        newGame = true;
+        
+      var losingSound = document.getElementById("loseAudio");
+      losingSound.play();
 
     }
-    var youWon = false;
+    //var youWon = false;
     if (isSpace === false) {
+        var winningSound = document.getElementById("winAudio");
+        winningSound.play();
         harry.youWon();
-        youWon = true;
+        //youWon = true;
+        newGame = true;
         numOfWins++;
         document.getElementById("wins").innerHTML = "Games won: " + numOfWins;
         document.getElementById("numberOfGuessesLeft").innerHTML = "Number of Guesses Left: " + 9;
-
+        
     }
   
-    if (youWon === true) {
-
+   // if (youWon === true) {
+      if (newGame) {   
+ 
         hiddenWord = harryArray[Math.floor(Math.random() * harryArray.length)];
        
         displayValues = "";
@@ -130,11 +144,14 @@ document.onkeyup = function (event) {
         displayAnswer = displayValues.split('');
         
         document.getElementById("wordPuzzle").innerHTML = displayAnswer.join(" ");
-        youWon = false;
+        //youWon = false;
+          newGame = false;
         isSpace = true;
         lettersGuessed = " ";
         numberOfGuesses = 0;
         numOfGuessesLeft = 9;
+        
+       
        
     }
    
